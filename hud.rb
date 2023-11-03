@@ -35,8 +35,7 @@ module WeatherNetworkRetriever
     app_id = ENV[OPEN_WEATHER_APP_ID_KEY]
     city_id = ENV[OPEN_WEATHER_CITY_ID_KEY]
     res = Net::HTTP.get_response(
-      'api.openweathermap.org',
-      "/data/2.5/weather?id=#{city_id}&units=metric&APPID=#{app_id}&lang=fr"
+      URI("https://api.openweathermap.org/data/2.5/weather?id=#{city_id}&units=metric&APPID=#{app_id}&lang=fr")
     )
 
     raise "Current weather API returned #{res.code}" unless res.code == '200'
@@ -64,8 +63,7 @@ module WeatherNetworkRetriever
     app_id = ENV[OPEN_WEATHER_APP_ID_KEY]
     city_id = ENV[OPEN_WEATHER_CITY_ID_KEY]
     res = Net::HTTP.get_response(
-      'api.openweathermap.org',
-      "/data/2.5/forecast?id=#{city_id}&units=metric&APPID=#{app_id}&lang=fr"
+      URI("https://api.openweathermap.org/data/2.5/forecast?id=#{city_id}&units=metric&APPID=#{app_id}&lang=fr")
     )
 
     raise "Forecast weather API returned #{res.code}" unless res.code == '200'
