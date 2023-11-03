@@ -48,7 +48,7 @@ module WeatherNetworkRetriever
         Time.at(data.dt),
         data.weather[0].icon,
         data.main.temp.floor,
-        data.weather[0].main
+        data.weather[0].description
       )
 
       LOGGER.info { 'Fetched current weather' }
@@ -82,7 +82,7 @@ module WeatherNetworkRetriever
             Time.at(prediction.dt),
             prediction.weather[0].icon,
             prediction.main.temp.floor,
-            prediction.weather[0].main
+            prediction.weather[0].description
           )
         }
         .sort_by(&:timestamp)
@@ -111,7 +111,7 @@ module WeatherNetworkRetriever
         unless data_point.weather and
           data_point.weather.kind_of?(Array) and
           data_point.weather[0] and
-          data_point.weather[0].main and
+          data_point.weather[0].description and
           data_point.weather[0].icon
   end
 end
@@ -283,7 +283,7 @@ class DateTimeDisplay
 
   def draw(window, fonts, now)
     date = Raylib::AnchoredText.new(
-      now.strftime('%a %-m/%d'),
+      now.strftime('%a %-d/%m'),
       :center,
       font: fonts.main(72),
       size: 72,
@@ -291,7 +291,7 @@ class DateTimeDisplay
     )
 
     time = Raylib::AnchoredText.new(
-      now.strftime('%-I:%M'),
+      now.strftime('%-H:%M'),
       :center,
       font: fonts.bold(96),
       size: 96,
