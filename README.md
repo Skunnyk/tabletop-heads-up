@@ -67,10 +67,12 @@ Quick Start
 
 1. Register for the [OpenWeatherMap API](https://openweathermap.org/api) and obtain an App ID.
 
-1. Run the HUD Ruby application, specifying the App ID as an environment variable:
+1. Get your city ID from [OpenWeatherMap city finder](https://openweathermap.org/find)
+
+1. Run the HUD Ruby application, specifying the App ID and city ID as an environment variable:
 
     ```sh
-    OPEN_WEATHER_APPID='<app-id-from-above>' ./hud.rb
+    OPEN_WEATHER_APPID='<app-id-from-above>' OPEN_WEATHER_CITY_ID='<city-id>' ./hud.rb
     ```
 
 Clean up
