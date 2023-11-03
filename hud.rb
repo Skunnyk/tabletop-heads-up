@@ -19,6 +19,7 @@ at_exit do LOGGER.close end
 # blocking the UI. The suggested use is to run the methods inside of a [Task].
 module WeatherNetworkRetriever
   OPEN_WEATHER_APP_ID_KEY = 'OPEN_WEATHER_APPID'
+  OPEN_WEATHER_CITY_ID_KEY = 'OPEN_WEATHER_CITY_ID'
 
   WeatherDataPoint = Struct.new(:timestamp, :icon, :temp, :description)
   Forecast = Struct.new(:predictions)
@@ -32,9 +33,10 @@ module WeatherNetworkRetriever
 
   def self.fetch_current_weather
     app_id = ENV[OPEN_WEATHER_APP_ID_KEY]
+    city_id = ENV[OPEN_WEATHER_CITY_ID_KEY]
     res = Net::HTTP.get_response(
       'api.openweathermap.org',
-      "/data/2.5/weather?id=5400075&units=metric&APPID=#{app_id}"
+      "/data/2.5/weather?id=#{city_id}&units=metric&APPID=#{app_id}&lang=fr"
     )
 
     raise "Current weather API returned #{res.code}" unless res.code == '200'
@@ -60,9 +62,10 @@ module WeatherNetworkRetriever
 
   def self.fetch_forecast
     app_id = ENV[OPEN_WEATHER_APP_ID_KEY]
+    city_id = ENV[OPEN_WEATHER_CITY_ID_KEY]
     res = Net::HTTP.get_response(
       'api.openweathermap.org',
-      "/data/2.5/forecast?id=5400075&units=metric&APPID=#{app_id}"
+      "/data/2.5/forecast?id=#{city_id}&units=metric&APPID=#{app_id}&lang=fr"
     )
 
     raise "Forecast weather API returned #{res.code}" unless res.code == '200'
